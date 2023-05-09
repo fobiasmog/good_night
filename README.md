@@ -1,24 +1,38 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Task
+We would like you to implement a "good night" application to let users track when do they go to bed and when do they wake up.
 
-Things you may want to cover:
+We require some restful APIS to achieve the following:
 
-* Ruby version
+1. Clock In operation, and return all clocked-in times, ordered by created time.
+2. Users can follow and unfollow other users.
+3. See the sleep records of a user's All friends from the previous week, which are sorted based on the duration of All friends sleep length.
 
-* System dependencies
+Please implement the model, db migrations, and JSON API.
+You can assume that there are only two fields on the users "id" and "name".
 
-* Configuration
+You do not need to implement any user registration API.
 
-* Database creation
 
-* Database initialization
+Models
+* Users
+* Friends
+* SleepRecords
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+API
+### prefix /api/v1
 
-* Deployment instructions
+### resources :users, only: [:index]
+* GET /users # all users list
 
-* ...
+### resources :friends, only: [:index, :create, :destroy] { get :week_chart }
+* GET    /friends # list of all friends
+* POST   /friends/:user_id # follow new friend
+* DELETE /friends/:user_id # unfollow
+
+### resources :sleep_records, only: [:index, :create, :update]
+* GET  /sleep_records # list of all tracks
+* POST /sleep_records/clock_in # start tracker
+* PUT  /sleep_records/clock_stop # stop tracker
