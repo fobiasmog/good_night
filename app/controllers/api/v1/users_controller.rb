@@ -4,8 +4,9 @@ module Api
   module V1
     class UsersController < ApplicationController
       # GET /users
+      # show all possible friends
       def index
-        @users = User.paginate(page: params[:page])
+        @users = User.where.not(id: current_user.id).paginate(page: params[:page])
 
         render json: @users
       end
