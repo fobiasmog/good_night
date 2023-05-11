@@ -18,8 +18,9 @@ module Api
       end
 
       # DELETE /friends/1
+      # remove connection between 2 users (without affecting users table records)
       def destroy
-        current_user.friends.where(friend_user_id: params[:id]).destroy
+        current_user.user_friends.find_by(friend_user_id: params[:id]).destroy
 
         head :no_content
       end
@@ -28,11 +29,10 @@ module Api
       # sleep records of a user's All friends from the previous week
       # which are sorted based on the duration of All friends sleep
       def sleep_records
-        sleep_records = SleepRecord.where(
-                                      user_id: current_user.friend_ids,
-                                      'created_at >=': Time.now - 1.week
-                                    )
-                                    .order(duration: :desc)
+        sleep_records = SleepRecord.completed
+                                   .stopped_on_previous_week
+                                   .where(user_id: current_user.friend_ids)
+                                   .order(duration: :desc)
 
         render json: sleep_records
       end
