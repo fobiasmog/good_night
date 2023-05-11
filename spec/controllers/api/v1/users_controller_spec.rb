@@ -5,7 +5,7 @@ RSpec.describe Api::V1::UsersController do
   let(:auth_user_id) { user.id }
   let(:params) { { auth_user_id: auth_user_id } }
 
-  describe "GET /index" do
+  describe 'GET /index' do
     subject { get :index, params: params }
 
     it { is_expected.to have_http_status(:success) }
