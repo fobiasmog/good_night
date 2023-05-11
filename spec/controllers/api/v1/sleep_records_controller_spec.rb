@@ -37,7 +37,7 @@ RSpec.describe Api::V1::SleepRecordsController do
     it 'makes active sleep records as finished' do
       expect { subject }
         .to change { sleep_record.reload.stopped_at }
-        .and change { sleep_record.duration }
+        .and change(sleep_record, :duration)
     end
   end
 end

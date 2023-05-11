@@ -30,7 +30,7 @@ RSpec.describe Api::V1::UserFriendsController do
     let(:friend_user) { create(:user) }
 
     it { is_expected.to have_http_status(:created) }
-    it { expect{ subject }.to change(UserFriend, :count).by(1) }
+    it { expect { subject }.to change(UserFriend, :count).by(1) }
 
     context 'when trying to add user who alredy your friend' do
       before do
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::UserFriendsController do
   end
 
   describe 'DELETE /friends' do
-    subject { delete :destroy, params: {id: friend_user.id, **params} }
+    subject { delete :destroy, params: { id: friend_user.id, **params } }
 
     before do
       create(:user_friend, user_id: user.id, friend_user_id: friend_user.id)
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::UserFriendsController do
     let(:friend_user) { create(:user) }
 
     it { is_expected.to have_http_status(:no_content) }
-    it { expect{ subject }.to change(UserFriend, :count).from(1).to(0) }
+    it { expect { subject }.to change(UserFriend, :count).from(1).to(0) }
   end
 
   describe 'GET /friends/sleep_records' do
