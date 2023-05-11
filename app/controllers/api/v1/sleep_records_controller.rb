@@ -3,7 +3,7 @@
 module Api
   module V1
     class SleepRecordsController < ApplicationController
-      before_action :set_sleep_record, only: %i[ update ]
+      before_action :set_sleep_record, only: %i[update]
 
       # GET /sleep_records
       def index
