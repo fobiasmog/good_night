@@ -6,4 +6,11 @@ class SleepRecord < ApplicationRecord
   belongs_to :user
 
   scope :completed, ->() { where.not(duration: nil, stopped_at: nil) }
+  scope :stopped_on_previous_week, ->() {
+    where(
+      stopped_at: (
+        (Time.now.beginning_of_week - 1.week) .. (Time.now.beginning_of_week - 1.week).end_of_week
+      )
+    )
+  }
 end
