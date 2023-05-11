@@ -33,6 +33,6 @@ API
 * DELETE /friends/:user_id # unfollow
 
 ### resources :sleep_records, only: [:index, :create, :update]
-* GET  /sleep_records # list of all tracks
-* POST /sleep_records/clock_in # start tracker
-* PUT  /sleep_records/clock_stop # stop tracker
+* GET   /sleep_records # list of all user tracks
+* POST  /sleep_records # start tracker
+* PATCH /sleep_records/:id # stop tracker

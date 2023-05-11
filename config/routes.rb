@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
       resources :sleep_records, only: %i[index]
       resource :sleep_record, only: %i[create update]
+
+      resources :friends, only: %i[index create destroy]
     end
   end
 end
