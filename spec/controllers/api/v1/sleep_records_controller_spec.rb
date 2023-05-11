@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SleepRecordsController do
     it { is_expected.to have_http_status(:ok) }
 
     context 'when user has sleep records' do
-      before { create_list(:sleep_record, 2, :completed, user: user) }
+      before { create_list(:sleep_record, 2, :completed_past_week, user: user) }
 
       it 'returns all user completed sleep records' do
         response = JSON.parse(subject.body)

@@ -28,8 +28,15 @@ RSpec.describe Api::V1::UserFriendsController do
 
     it { is_expected.to have_http_status(:created) }
     it { expect{ subject }.to change(UserFriend, :count).by(1) }
-  end
 
+    context 'when trying to add user who alredy your friend' do
+      before do
+        create(:user_friend, user_id: user.id, friend_user_id: friend_user.id)
+      end
+
+      it { is_expected.to have_http_status(:unprocessable_entity) }
+    end
+  end
 
   describe 'DELETE /friends' do
     subject { delete :destroy, params: {id: friend_user.id, **params} }

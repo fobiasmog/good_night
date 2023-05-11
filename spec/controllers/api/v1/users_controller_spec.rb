@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController do
+  let(:user) { create(:user) }
+  let(:auth_user_id) { user.id }
+  let(:params) { { auth_user_id: auth_user_id } }
+
   describe "GET /index" do
     subject { get :index, params: params }
-
-    let(:params) { {} }
 
     it { is_expected.to have_http_status(:success) }
 
@@ -22,9 +24,9 @@ RSpec.describe Api::V1::UsersController do
         expect(users.size).to eq User.per_page
       end
 
-      context 'with page param' do
+      context 'with second page parameter' do
         let(:page) { 2 }
-        let(:params) { { page: page } }
+        let(:params) { { page: page, auth_user_id: auth_user_id } }
 
         it { is_expected.to have_http_status(:success) }
         it 'returns limited size of records' do
