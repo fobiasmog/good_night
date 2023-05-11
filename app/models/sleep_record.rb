@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SleepRecord < ApplicationRecord
   self.per_page = 10
 
