@@ -20,6 +20,7 @@ RSpec.describe Api::V1::UsersController do
       before { create_list(:user, 15) }
 
       it { is_expected.to have_http_status(:success) }
+
       it 'returns limited size of records' do
         users = JSON.parse(subject.body)
 
@@ -31,6 +32,7 @@ RSpec.describe Api::V1::UsersController do
         let(:params) { { page: page, auth_user_id: auth_user_id } }
 
         it { is_expected.to have_http_status(:success) }
+
         it 'returns limited size of records' do
           users = JSON.parse(subject.body)
 

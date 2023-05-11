@@ -17,6 +17,7 @@ RSpec.describe Api::V1::UserFriendsController do
     let(:friends_count) { 3 }
 
     it { is_expected.to have_http_status(:ok) }
+
     it 'returns list of user friends' do
       response = JSON.parse(subject.body)
       expect(response.size).to eq friends_count
@@ -67,6 +68,7 @@ RSpec.describe Api::V1::UserFriendsController do
     let!(:past_week_record) { create(:sleep_record, :completed_past_week, user: friend_user) }
 
     it { is_expected.to have_http_status(:ok) }
+
     it 'returns only this week completed records' do
       response = JSON.parse(subject.body)
 
