@@ -3,9 +3,8 @@
 module Api
   module V1
     class SleepRecordsController < ApplicationController
-      before_action :set_sleep_record, only: %i[ update ]
-
       # GET /sleep_records
+      # list of already stopped (checked-in/completed) records
       def index
         @sleep_records = current_user.sleep_records.completed.order(created_at: :desc)
 
@@ -17,9 +16,7 @@ module Api
       def create
         clock_in_sleep_record = current_user.sleep_records.new
 
-        if clock_in_sleep_record.save
-          return head :created
-        end
+        return head :created if clock_in_sleep_record.save
 
         render json: clock_in_sleep_record.errors, status: :unprocessable_entity
       end
@@ -27,18 +24,14 @@ module Api
       # PATCH/PUT /sleep_records/1
       # mark current sleep record as checked-in
       def update
-        if @sleep_record.update(sleep_record_params)
-          return render json: @sleep_record
-        end
+        @sleep_record = SleepRecord.find(params[:id])
+
+        return render json: @sleep_record if @sleep_record.update(sleep_record_params)
 
         render json: @sleep_record.errors, status: :unprocessable_entity
       end
 
       private
-
-      def set_sleep_record
-        @sleep_record ||= SleepRecord.find(params[:id])
-      end
 
       def sleep_record_params
         stopped_at = Time.now

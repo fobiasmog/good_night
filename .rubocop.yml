@@ -215,3 +215,6 @@ Layout/EmptyLinesAroundExceptionHandlingKeywords:
   Enabled: true
   Exclude:
     - 'app/interactions/transfers/send_interactor.rb'
+
+Style/Lambda:
+  EnforcedStyle: literal
