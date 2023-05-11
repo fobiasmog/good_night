@@ -15,3 +15,10 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers', '~> 5.0'
 end
+
+group :development, :test do
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rake', require: false
+  gem 'rubocop-rspec', require: false
+end
