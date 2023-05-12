@@ -25,6 +25,9 @@ We have 3 models:
 
 What's if code will grow? We'll move business logic to Services, complicated queries to Queries, and add some Serializers for formatting json
 
+**important**
+Because I didn't implement user auth, I assume, that in real API we'll use some JWT tokens. But right now, for simplifications, with every API call, we need to use the parameter `auth_user_id` with the User.id value
+
 ## Models
 * Users
 * UserFriends
