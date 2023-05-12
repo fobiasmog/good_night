@@ -7,6 +7,7 @@ class SleepRecord < ApplicationRecord
 
   belongs_to :user
 
+  scope :active, -> { find_by(duration: nil, stopped_at: nil) }
   scope :completed, -> { where.not(duration: nil, stopped_at: nil) }
   scope :stopped_on_previous_week, -> do
     where(

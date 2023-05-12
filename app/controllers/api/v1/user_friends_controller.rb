@@ -3,10 +3,6 @@
 module Api
   module V1
     class UserFriendsController < ApplicationController
-      rescue_from StandardError do |error|
-        render json: { error: error }, status: :unprocessable_entity
-      end
-
       # GET /friends
       def index
         render json: current_user.friends

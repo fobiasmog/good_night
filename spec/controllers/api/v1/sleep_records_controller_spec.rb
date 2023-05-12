@@ -27,17 +27,31 @@ RSpec.describe Api::V1::SleepRecordsController do
 
     it { is_expected.to have_http_status(:created) }
     it { expect { subject }.to change(SleepRecord, :count).by(1) }
+
+    context 'when trying to create record if not stopped already exist' do
+      before { create(:sleep_record, user: user) }
+
+      it { is_expected.to have_http_status(:accepted) }
+      it { expect { subject }.not_to change(SleepRecord, :count) }
+    end
   end
 
   describe 'PATCH /sleep_records/:id' do
     subject { patch :update, params: { id: sleep_record.id, **params } }
 
-    let!(:sleep_record) { create(:sleep_record, user: user) }
+    let!(:sleep_record) { create(:sleep_record, created_at: Time.now - 1.hour, user: user) }
 
     it 'makes active sleep records as finished' do
       expect { subject }
         .to change { sleep_record.reload.stopped_at }
         .and change(sleep_record, :duration)
+    end
+
+    context 'when duration < 0' do
+      let!(:sleep_record) { create(:sleep_record, created_at: Time.now + 1.hour, user: user) }
+
+      it { is_expected.to have_http_status(:unprocessable_entity) }
+      it { expect { subject }.not_to change { sleep_record } }
     end
   end
 end
