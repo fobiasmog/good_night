@@ -4,9 +4,9 @@ module Api
   module V1
     class SleepRecordsController < ApplicationController
       # GET /sleep_records
-      # list of already stopped (checked-in/completed) records
+      # list of sleep_records records
       def index
-        sleep_records = current_user.sleep_records.completed.order(created_at: :desc)
+        sleep_records = current_user.sleep_records.order(created_at: :desc)
 
         render json: sleep_records
       end
