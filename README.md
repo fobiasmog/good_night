@@ -16,11 +16,19 @@ You can assume that there are only two fields on the users "id" and "name".
 You do not need to implement any user registration API.
 ```
 
+## Explanation and simplifications
+In this version of the "Good Night" I made not super complicated code.
+We have 3 models:
+* User - user, haha :)
+* UserFriends - this model using for storing friends relations. But I didn't make bi-directional friendships (so in my implementation it's more like "following")
+* SleepRecords - I assume, that at the moment the user can have only one active (not stopped) record (we can't start sleeping while we sleeping :))
+
+What's if code will grow? We'll move business logic to Services, complicated queries to Queries, and add some Serializers for formatting json
+
 ## Models
 * Users
 * UserFriends
 * SleepRecords
-
 
 ## API
 ### prefix /api/v1
